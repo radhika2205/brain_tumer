@@ -7,12 +7,18 @@ import subprocess
 import sys
 
 # Force install gdown if not available
+# try:
+#     import gdown
+# except ImportError:
+#     # subprocess.check_call([sys.executable, "-m", "pip", "install", "gdown==4.7.3"])
+#     import gdown
+
+# Force install gdown if not available
 try:
     import gdown
 except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "gdown==4.7.3"])
-    import gdown
-
+    import gdown  # will be installed via requirements.txt
+    
 import numpy as np
 import streamlit as st
 import tensorflow as tf
