@@ -1,8 +1,6 @@
 streamlit
-tensorflow==2.13.0
+gdown
+tensorflow-cpu
 opencv-python-headless
 Pillow
 numpy
-gdown==4.7.3
-protobuf==3.20.3
- 
