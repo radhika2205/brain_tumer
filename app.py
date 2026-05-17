@@ -5,6 +5,8 @@
 import os
 import subprocess
 import sys
+import gdown
+
 
 # Force install gdown if not available
 # try:
