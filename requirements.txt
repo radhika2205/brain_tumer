@@ -1,7 +1,6 @@
 streamlit
 gdown
+tf-keras
+numpy
 opencv-python-headless
 Pillow
-numpy
-torch
-torchvision
