@@ -2,6 +2,10 @@
 #  BRAIN TUMOR DETECTION — STREAMLIT APP
 # ============================================================
 
+
+
+
+
 import os
 import subprocess
 import sys
@@ -23,9 +27,11 @@ except ImportError:
     
 import numpy as np
 import streamlit as st
-import tensorflow as tf
 import cv2
 from PIL import Image
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
+import tf_keras as tf
+from tf_keras.applications.vgg16 import preprocess_input
 
 # ── PAGE CONFIG ─────────────────────────────────────────────
 st.set_page_config(
@@ -74,14 +80,14 @@ if not os.path.exists(MODEL_PATH):
 
 # ── LOAD MODEL ───────────────────────────────────────────────
 @st.cache_resource
+@st.cache_resource
 def load_model():
-    return tf.keras.models.load_model(MODEL_PATH)
-
+    return tf.models.load_model(MODEL_PATH)
 model = load_model()
 
 # ── GRAD-CAM ─────────────────────────────────────────────────
 def get_gradcam(model, img_array, last_conv_layer='block5_conv3'):
-    grad_model = tf.keras.models.Model(
+    grad_model = tf.models.Model(
         inputs=model.input,
         outputs=[model.get_layer(last_conv_layer).output, model.output]
     )
@@ -111,9 +117,8 @@ def overlay_gradcam(original_img, heatmap):
 def preprocess(image):
     img = image.resize((224, 224)).convert('RGB')
     arr = np.array(img, dtype=np.float32)
-    arr = tf.keras.applications.vgg16.preprocess_input(arr)
+    arr = preprocess_input(arr)
     return np.expand_dims(arr, axis=0)
-
 # ── UI ───────────────────────────────────────────────────────
 st.title("🧠 Brain Tumor MRI Detection")
 st.markdown("AI-powered detection using **VGG16 Transfer Learning** with **Grad-CAM** explainability")
