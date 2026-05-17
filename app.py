@@ -29,7 +29,7 @@ import numpy as np
 import streamlit as st
 import cv2
 from PIL import Image
-os.environ["TF_USE_LEGACY_KERAS"] = "1"
+os.environ["1m0eTOusUUVexOjTks0ZOSJLg4eTSjMU3"] = "1"
 import tf_keras as tf
 from tf_keras.applications.vgg16 import preprocess_input
 
