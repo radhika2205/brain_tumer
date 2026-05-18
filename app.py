@@ -2,8 +2,6 @@
 #  BRAIN TUMOR DETECTION — STREAMLIT APP
 # ============================================================
 
-
-
 import os
 import gdown
 import numpy as np
@@ -12,33 +10,7 @@ import cv2
 from PIL import Image
 import keras
 from keras.applications.vgg16 import preprocess_input
-
-import os
-import subprocess
-import sys
-import gdown
-
-
-# Force install gdown if not available
-# try:
-#     import gdown
-# except ImportError:
-#     # subprocess.check_call([sys.executable, "-m", "pip", "install", "gdown==4.7.3"])
-#     import gdown
-
-# Force install gdown if not available
-try:
-    import gdown
-except ImportError:
-    import gdown  # will be installed via requirements.txt
-    
-import numpy as np
-import streamlit as st
-import cv2
-from PIL import Image
-os.environ["1m0eTOusUUVexOjTks0ZOSJLg4eTSjMU3"] = "1"
-import tf_keras as tf
-from tf_keras.applications.vgg16 import preprocess_input
+import tensorflow as tf
 
 # ── PAGE CONFIG ─────────────────────────────────────────────
 st.set_page_config(
@@ -87,14 +59,14 @@ if not os.path.exists(MODEL_PATH):
 
 # ── LOAD MODEL ───────────────────────────────────────────────
 @st.cache_resource
-@st.cache_resource
 def load_model():
-    return tf.models.load_model(MODEL_PATH)
+    return keras.models.load_model(MODEL_PATH)
+
 model = load_model()
 
 # ── GRAD-CAM ─────────────────────────────────────────────────
 def get_gradcam(model, img_array, last_conv_layer='block5_conv3'):
-    grad_model = tf.models.Model(
+    grad_model = keras.models.Model(
         inputs=model.input,
         outputs=[model.get_layer(last_conv_layer).output, model.output]
     )
@@ -126,6 +98,7 @@ def preprocess(image):
     arr = np.array(img, dtype=np.float32)
     arr = preprocess_input(arr)
     return np.expand_dims(arr, axis=0)
+
 # ── UI ───────────────────────────────────────────────────────
 st.title("🧠 Brain Tumor MRI Detection")
 st.markdown("AI-powered detection using **VGG16 Transfer Learning** with **Grad-CAM** explainability")
