@@ -1,6 +1,6 @@
 streamlit
 gdown
-tf-keras
+keras
 numpy
 opencv-python-headless
 Pillow
