@@ -1,5 +1,5 @@
 streamlit
-gdown
+tenserflow
 keras
 numpy
 opencv-python-headless
